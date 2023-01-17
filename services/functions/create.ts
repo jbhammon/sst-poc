@@ -2,10 +2,10 @@ import {
   // APIGatewayProxyHandlerV2,
   APIGatewayProxyEventV2,
 } from "aws-lambda";
-import AWS from "aws-sdk";
+import { DocumentClient } from "aws-sdk/clients/dynamodb";
 import * as uuid from "uuid";
 
-const dynamoDb = new AWS.DynamoDB.DocumentClient();
+import dynamoDb from "../util/dynamodb";
 
 // Another way to type/define this:
 // export const main: APIGatewayProxyHandlerV2 = async (event) => {}
@@ -15,7 +15,7 @@ export async function main(event: APIGatewayProxyEventV2) {
   if (event.body) {
     const data = JSON.parse(event.body);
 
-    const params = {
+    const params: DocumentClient.PutItemInput = {
       TableName: process.env.TABLE_NAME ?? "",
       Item: {
         // attributes of what's to be created
@@ -28,7 +28,7 @@ export async function main(event: APIGatewayProxyEventV2) {
     };
 
     try {
-      await dynamoDb.put(params).promise();
+      await dynamoDb.put(params);
       return {
         statusCode: 200,
         body: JSON.stringify(params.Item),
