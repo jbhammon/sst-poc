@@ -1,7 +1,9 @@
-import { StackContext } from "@serverless-stack/resources";
+import { Bucket, StackContext } from "@serverless-stack/resources";
 import { Table } from "@serverless-stack/resources";
 
 export function StorageStack({ stack, app }: StackContext) {
+  const bucket = new Bucket(stack, "Uploads");
+
   const table = new Table(stack, "Notes", {
     fields: {
       userId: "string",
@@ -12,5 +14,6 @@ export function StorageStack({ stack, app }: StackContext) {
 
   return {
     table,
+    bucket,
   };
 }
