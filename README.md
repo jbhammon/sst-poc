@@ -1,15 +1,23 @@
 # SST Proof-of-Concept
 
-This project is made up of several parts
+## Layout
 
-## Stacks
+This project is made up of several parts, and so far follows opinions laid out by the SST docs.
+
+### Stacks
 
 The app infrastructure, created with AWS CDK
 
-## Services
+### Services
 
 Lambda function code and such
 
-## Frontend
+### Frontend
 
 Frontend that's to come
+
+## Notes & Lessons Learned
+
+### Telemetry
+
+The SST framework collects some basic, anonymous telemetry data. You can opt out with `npx sst telemetry disable`
