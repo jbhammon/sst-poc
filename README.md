@@ -21,3 +21,9 @@ Frontend that's to come
 ### Telemetry
 
 The SST framework collects some basic, anonymous telemetry data. You can opt out with `npx sst telemetry disable`
+
+### Secrets and env variables
+
+This framework uses a similar approach to env variables and `.env` file names that `create-react-app` does.
+
+It doesn't seem to mention anything about using AWS Secrets Manager, so that's something for us to figure out on our own. Luckily we can drop down into the cdk to do that if need be.
