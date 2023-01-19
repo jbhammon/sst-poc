@@ -1,11 +1,6 @@
 import {
   // APIGatewayProxyHandlerV2,
   APIGatewayProxyEventV2,
-  APIGatewayProxyEventV2WithJWTAuthorizer,
-  APIGatewayProxyEventV2WithLambdaAuthorizer,
-  APIGatewayProxyEventV2WithRequestContext,
-  APIGatewayProxyHandlerV2,
-  APIGatewayProxyWithCognitoAuthorizerEvent,
 } from "aws-lambda";
 import { DocumentClient } from "aws-sdk/clients/dynamodb";
 import * as uuid from "uuid";
