@@ -1,6 +1,11 @@
 import {
   // APIGatewayProxyHandlerV2,
   APIGatewayProxyEventV2,
+  APIGatewayProxyEventV2WithJWTAuthorizer,
+  APIGatewayProxyEventV2WithLambdaAuthorizer,
+  APIGatewayProxyEventV2WithRequestContext,
+  APIGatewayProxyHandlerV2,
+  APIGatewayProxyWithCognitoAuthorizerEvent,
 } from "aws-lambda";
 import { DocumentClient } from "aws-sdk/clients/dynamodb";
 import * as uuid from "uuid";
@@ -14,6 +19,7 @@ export async function main(event: APIGatewayProxyEventV2) {
   // Request body is passed in as a JSON encoded string in 'event.body'
   if (event.body) {
     const data = JSON.parse(event.body);
+    // event.requestContext.
 
     const params: DocumentClient.PutItemInput = {
       TableName: process.env.TABLE_NAME ?? "",
