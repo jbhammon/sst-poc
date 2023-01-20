@@ -6,7 +6,7 @@ export function ApiStack({ stack, app }: StackContext) {
 
   const api = new Api(stack, "Api", {
     defaults: {
-      authorizer: "iam",
+      // authorizer: "iam",
       function: {
         permissions: [table],
         environment: {
@@ -14,6 +14,10 @@ export function ApiStack({ stack, app }: StackContext) {
           STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY ?? "",
         },
       },
+    },
+    cors: {
+      allowCredentials: true,
+      allowOrigins: ["https://console.sst.dev"],
     },
     routes: {
       "POST /notes": "functions/create.main",
