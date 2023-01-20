@@ -1,20 +1,13 @@
-import {
-  // APIGatewayProxyHandlerV2,
-  APIGatewayProxyEventV2,
-} from "aws-lambda";
+import { APIGatewayProxyEventV2 } from "aws-lambda";
 import { DocumentClient } from "aws-sdk/clients/dynamodb";
 import * as uuid from "uuid";
 
 import dynamoDb from "../util/dynamodb";
 
-// Another way to type/define this:
-// export const main: APIGatewayProxyHandlerV2 = async (event) => {}
-
 export async function main(event: APIGatewayProxyEventV2) {
   // Request body is passed in as a JSON encoded string in 'event.body'
   if (event.body) {
     const data = JSON.parse(event.body);
-    // event.requestContext.
 
     const params: DocumentClient.PutItemInput = {
       TableName: process.env.TABLE_NAME ?? "",
@@ -34,16 +27,10 @@ export async function main(event: APIGatewayProxyEventV2) {
         statusCode: 200,
         body: JSON.stringify(params.Item),
       };
-    } catch (e: unknown) {
-      if (e instanceof Error) {
-        return {
-          statusCode: 500,
-          body: JSON.stringify({ error: e.message }),
-        };
-      }
+    } catch {
       return {
         statusCode: 500,
-        body: JSON.stringify(e),
+        body: "Internal error",
       };
     }
   }

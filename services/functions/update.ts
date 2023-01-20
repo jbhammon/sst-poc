@@ -23,8 +23,15 @@ export const main: APIGatewayProxyHandlerV2 = async (event) => {
       // can inspect 'result' below to see how it works with different settings
       ReturnValues: "ALL_NEW",
     };
-    await dynamodb.update(params);
-    return { statusCode: 204, status: true };
+    try {
+      await dynamodb.update(params);
+      return { statusCode: 204, status: true };
+    } catch {
+      return {
+        statusCode: 500,
+        body: "Internal error",
+      };
+    }
   }
 
   return {

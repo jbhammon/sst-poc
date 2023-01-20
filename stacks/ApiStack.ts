@@ -15,6 +15,10 @@ export function ApiStack({ stack, app }: StackContext) {
         },
       },
     },
+    cors: {
+      allowCredentials: true,
+      allowOrigins: ["https://console.sst.dev"],
+    },
     routes: {
       "POST /notes": "functions/create.main",
       "GET /notes/{id}": "functions/get.main",
