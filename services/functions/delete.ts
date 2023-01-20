@@ -11,9 +11,16 @@ export const main: APIGatewayProxyHandlerV2 = async (event) => {
         noteId: event.pathParameters.id,
       },
     };
-    await dynamodb.delete(params);
+    try {
+      await dynamodb.delete(params);
 
-    return { statusCode: 200, status: true };
+      return { statusCode: 200, status: true };
+    } catch {
+      return {
+        statusCode: 500,
+        body: "Internal error",
+      };
+    }
   }
   return {
     statusCode: 400,
