@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@serverless-stack/node": "^1.18.4",
+    "@sls-next/lambda-at-edge": "^3.7.0",
     "@types/uuid": "^9.0.0",
     "uuid": "^9.0.0"
   },
