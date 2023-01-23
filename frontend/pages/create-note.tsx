@@ -1,11 +1,15 @@
 import { API } from "aws-amplify";
-import React from "react";
+import React, { useState } from "react";
+
+import Button from "@/components/button";
 
 interface Note {
-  content: string;
+  content?: string;
 }
 
 export default function CreateNote() {
+  const [content, setContent] = useState<string>();
+
   function createNote(note: Note) {
     return API.post("notes", "/notes", {
       body: note,
@@ -14,12 +18,8 @@ export default function CreateNote() {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const note: Note = {
-      content: "A new note",
-    };
-
     try {
-      await createNote(note);
+      await createNote({ content });
     } catch (e) {
       console.log(e);
     }
@@ -31,9 +31,14 @@ export default function CreateNote() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <label className="block space-y-1">
             <span className="text-gray-500">Note Content</span>
-            <input type="text" id="note-content" className="mt-1 block " />
+            <input
+              type="text"
+              id="note-content"
+              className="mt-1 block"
+              onChange={(e) => setContent(e.target.value)}
+            />
           </label>
-          <button type="submit">Create note</button>
+          <Button type="submit">Create note</Button>
         </form>
       </div>
     </>
