@@ -26,12 +26,16 @@ export default function CreateNote() {
   }
   return (
     <>
-      <h1>New note</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="note-content">Content</label>
-        <input type="text" id="note-content" />
-        <button type="submit">Create note</button>
-      </form>
+      <div className="container-mx-auto mt-8 px-8 flex flex-col space-y-4">
+        <h1 className="text-2xl">New note 🗒️</h1>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <label className="block space-y-1">
+            <span className="text-gray-500">Note Content</span>
+            <input type="text" id="note-content" className="mt-1 block " />
+          </label>
+          <button type="submit">Create note</button>
+        </form>
+      </div>
     </>
   );
 }
