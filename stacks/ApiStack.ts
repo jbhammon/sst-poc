@@ -6,7 +6,7 @@ export function ApiStack({ stack, app }: StackContext) {
 
   const api = new Api(stack, "Api", {
     defaults: {
-      authorizer: "iam",
+      // authorizer: "iam",
       function: {
         permissions: [table],
         environment: {
@@ -17,7 +17,7 @@ export function ApiStack({ stack, app }: StackContext) {
     },
     cors: {
       allowCredentials: true,
-      allowOrigins: ["https://console.sst.dev"],
+      allowOrigins: ["https://console.sst.dev", "http://localhost:3000"],
     },
     routes: {
       "POST /notes": "functions/create.main",
