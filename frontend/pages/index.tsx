@@ -1,7 +1,27 @@
+import { Note } from "@/types";
+import { API } from "aws-amplify";
 import Head from "next/head";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [notes, setNotes] = useState<Note[]>([]);
+  function getNotes() {
+    return API.get("notes", "/notes", {});
+  }
+  useEffect(() => {
+    const _getNotes = async () => {
+      try {
+        const res = await getNotes();
+        setNotes(res);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    _getNotes();
+  }, []);
+
   return (
     <>
       <Head>
@@ -19,6 +39,12 @@ export default function Home() {
               Create new note
             </a>
           </Link>
+          <h2 className="text-xl">Previous notes</h2>
+          <ul className="space-y-1">
+            {notes.map((note) => (
+              <li key={note.noteId}>{note.content}</li>
+            ))}
+          </ul>
         </div>
       </main>
     </>
