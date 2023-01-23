@@ -2,10 +2,7 @@ import { API } from "aws-amplify";
 import React, { useState } from "react";
 
 import Button from "@/components/button";
-
-interface Note {
-  content?: string;
-}
+import { Note } from "@/types";
 
 export default function CreateNote() {
   const [content, setContent] = useState<string>();
