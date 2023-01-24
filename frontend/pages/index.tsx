@@ -3,6 +3,7 @@ import { API } from "aws-amplify";
 import Head from "next/head";
 import Link from "next/link";
 import { GetServerSideProps } from "next";
+import configAmplify from "@/amplify.config";
 
 interface HomeProps {
   notes: Note[];
@@ -13,6 +14,10 @@ function getNotes() {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  // To accomplish SSR we need to configure the Amplify API stuff here, because
+  // getServerSideProps runs before anything gets to the client. Then we'll configure
+  // it again on the client side in _app.tsx. Not sure if there's a better way to do this yet.
+  configAmplify();
   try {
     const res = (await getNotes()) as Note[];
     return {
