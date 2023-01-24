@@ -4,6 +4,16 @@ import { StorageStack } from "./StorageStack";
 export function ApiStack({ stack, app }: StackContext) {
   const { table } = use(StorageStack);
 
+  // TODO make this more robust if/when a custom domain is known
+  function corsForStage() {
+    switch (app.stage) {
+      case "prod":
+        return ["https://*"];
+      default:
+        return ["https://*", "http://localhost:3000"];
+    }
+  }
+
   const api = new Api(stack, "Api", {
     defaults: {
       // authorizer: "iam",
@@ -17,7 +27,7 @@ export function ApiStack({ stack, app }: StackContext) {
     },
     cors: {
       allowCredentials: true,
-      allowOrigins: ["https://console.sst.dev", "http://localhost:3000"],
+      allowOrigins: corsForStage(),
     },
     routes: {
       "POST /notes": "functions/create.main",
