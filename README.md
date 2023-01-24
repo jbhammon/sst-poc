@@ -18,6 +18,8 @@ Next.js 12 app with Tailwind for styles.
 
 ## Local development
 
+Start with `npm i` in the root for this project. This project uses `npm` workspaces\* so that command will install all the dependencies you need, which is controlled by the root-level `package.json`'s `workspaces` keyword.
+
 To start a "local" development environment you can run `npx sst start` from the project root. You can provide a specific AWS CLI profile with that command if you'd like.
 
 If this is the first time you run the command, then it will ask for a name for the environment and then deploy lots of resources for two sets of stacks:
@@ -28,6 +30,8 @@ If this is the first time you run the command, then it will ask for a name for t
 With that command run, the backend resources will be available to check out through the SST console at [sst.console.dev](sst.console.dev).
 
 After that, you can start the Next app, if need be. From the `/frontend` directory run `npm run dev`, and the app should be available at [localhost:3000](http://localhost:3000).
+
+\*The SST framework doesn't seem to play nice with `pnpm` yet, but the maintainers say there are changes coming with v2 to change that. When upgrading to v2 it should be possible to consider using `pnpm` rather than `npm` workspaces.
 
 ## Deployment
 
