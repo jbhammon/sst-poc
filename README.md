@@ -52,3 +52,16 @@ It doesn't seem to mention anything about using AWS Secrets Manager, so that's s
 ### Next
 
 The SST framework doesn't seem ready to work with the latest version of Next, 13, and I had to manually tweak things from the `npx create-next-app` command to downgrade to version 12. Then deploying things went smoothly.
+
+### CI/CD with Seed
+
+Overall, this service works great out-of-the-box with SST apps. It detected lots of our project configuration automatically, didn't require creating any build scripts/files, and with a few clicks you get:
+
+- A "dev" stage that's deployed to on pushes to the "main" branch
+- The correct install, build, and test scripts all being run as part of deploying to a stage
+- A "prod" stage you can deploy to by manually promoting changes that have deployed to "dev"
+- A "changeset" summary of all the changes to AWS resources you'll be making when you promote to "prod" (probably just a pretty output of a `cdk diff` command)
+
+It's pretty simple through Seed's UI to create new stages and update how changes move through them. I'm not a CI/CD expert so it's hard to say what complex or unique workflows Seed can support, but for a simple "dev", "staging", and "prod" setup it seems like a solid tool.
+
+We're even able to see the AWS resources in each stage, and check their logs and monitoring metrics.
