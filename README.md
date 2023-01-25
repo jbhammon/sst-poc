@@ -57,6 +57,8 @@ It doesn't seem to mention anything about using AWS Secrets Manager, so that's s
 
 The SST framework doesn't seem ready to work with the latest version of Next, 13, and I had to manually tweak things from the `npx create-next-app` command to downgrade to version 12. Then deploying things went smoothly.
 
+Something in this SST+Next setup causes HMR in the Next app to act even more inconsistently than usual. Keep that in mind if you're making lots of changes in the Next app and you aren't getting the expected result. Stopping and starting Next can be a good sanity check to work through that.
+
 ### CI/CD with Seed
 
 Overall, this service works great out-of-the-box with SST apps. It detected lots of our project configuration automatically, didn't require creating any build scripts/files, and with a few clicks you get:
