@@ -16,7 +16,6 @@ export function ApiStack({ stack, app }: StackContext) {
 
   const api = new Api(stack, "Api", {
     defaults: {
-      // authorizer: "iam",
       function: {
         permissions: [table],
         environment: {
@@ -30,7 +29,10 @@ export function ApiStack({ stack, app }: StackContext) {
       allowOrigins: corsForStage(),
     },
     routes: {
-      "POST /notes": "functions/create.main",
+      "POST /notes": {
+        authorizer: "iam",
+        function: "functions/create.main",
+      },
       "GET /notes/{id}": "functions/get.main",
       "GET /notes": "functions/list.main",
       "PUT /notes/{id}": "functions/update.main",
