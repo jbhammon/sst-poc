@@ -3,6 +3,16 @@ import React, { useState } from "react";
 
 import Button from "@/components/button";
 import { Note } from "@/types";
+import { GetServerSideProps } from "next";
+import requireAuthentication from "@/utils/require-authentication";
+
+export const getServerSideProps: GetServerSideProps = requireAuthentication(
+  async () => {
+    return {
+      props: {},
+    };
+  }
+);
 
 export default function CreateNote() {
   const [content, setContent] = useState<string>();

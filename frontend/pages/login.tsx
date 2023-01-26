@@ -1,27 +1,17 @@
-import { Authenticator } from "@aws-amplify/ui-react";
+import { Authenticator, useAuthenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import { Auth } from "aws-amplify";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 export default function Login() {
-  const [user, setUser] = useState(null);
-  useEffect(() => {
-    Auth.currentAuthenticatedUser()
-      .then((user) => {
-        console.log("User: ", user);
-        setUser(user);
-      })
-      .catch(() => setUser(null));
-  }, []);
+  const router = useRouter();
+  const { route } = useAuthenticator((context) => [context.route]);
 
-  return (
-    <Authenticator hideSignUp>
-      {({ signOut, user }) => (
-        <main>
-          <h1>Hello {user?.username}</h1>
-          <button onClick={signOut}>Sign out</button>
-        </main>
-      )}
-    </Authenticator>
-  );
+  if (route === "authenticated") {
+    // TODO add logic to go back either the previous screen or the home page
+    router.replace("/");
+  }
+
+  return <Authenticator hideSignUp></Authenticator>;
 }
