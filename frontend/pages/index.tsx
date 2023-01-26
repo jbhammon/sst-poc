@@ -1,9 +1,10 @@
 import { Note } from "@/types";
-import { API } from "aws-amplify";
+import { API, Auth } from "aws-amplify";
 import Head from "next/head";
 import Link from "next/link";
 import { GetServerSideProps } from "next";
 import configAmplify from "@/amplify.config";
+import { useEffect, useState } from "react";
 
 interface HomeProps {
   notes: Note[];
@@ -35,6 +36,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 export default function Home(props: HomeProps) {
   const { notes } = props;
+  const [user, setUser] = useState<any>(undefined);
+  useEffect(() => {
+    Auth.currentAuthenticatedUser()
+      .then((user) => {
+        setUser(user);
+      })
+      .catch(() => setUser(undefined));
+  }, []);
 
   return (
     <>
@@ -48,6 +57,7 @@ export default function Home(props: HomeProps) {
         <div className="container mx-auto mt-8 px-8 flex flex-col space-y-6">
           <h1 className="text-2xl">Simple Notes 🍩</h1>
           <p>A simple serverless app made with SST</p>
+          {user ? <h2>Hello {user?.username}</h2> : null}
           <Link href="/create-note">
             <a className="text-purple-500 underline decoration-purple-500">
               Create new note
